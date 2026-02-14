@@ -12,6 +12,16 @@ const navLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const handleNavClick = (href: any) => {
+    setOpen(false);
+
+    setTimeout(() => {
+      document.querySelector(href)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 300); // tunggu animasi selesai
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
@@ -64,18 +74,17 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-4 px-6 py-4">
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                  onClick={() => handleNavClick(link.href)}
+                  className="text-left text-sm font-medium text-muted-foreground hover:text-primary"
                 >
                   {link.label}
-                </a>
+                </button>
               ))}
               <a
                 href="#pesan"
-                onClick={() => setOpen(false)}
+                onClick={() => handleNavClick("#pesan")}
                 className="inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-accent"
               >
                 Pesan Sekarang
